@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import Button from './Button';
-import styles from './styles';
+import Button from './Button.js';
+import styles from './styles.js';
 
 const Calculator = () => {
   const [input, setInput] = useState('');
@@ -16,14 +16,16 @@ const Calculator = () => {
 
   const handleCalculate = () => {
     try {
-      setInput(eval(input).toString());
+      const result = eval(input);
+      setInput(result.toString());
     } catch (error) {
       setInput('Error');
     }
   };
+  
 
   const renderButton = (value) => (
-    <Button onPress={() => handleButtonPress(value)} value={value} />
+    <Button onPress={() => value === '=' ? handleCalculate() : handleButtonPress(value)} value={value} />
   );
 
   return (
